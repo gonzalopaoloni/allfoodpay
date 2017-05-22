@@ -1,0 +1,18 @@
+branch-defaults:
+  default:
+    environment: allfood-pay-prod-dev
+deploy:
+  artifact: target/allfoodpay-0.0.1-SNAPSHOT.jar
+global:
+  application_name: allfood-pay-prod
+  branch: null
+  default_ec2_keyname: API
+  default_platform: Java 8
+  default_region: sa-east-1
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
