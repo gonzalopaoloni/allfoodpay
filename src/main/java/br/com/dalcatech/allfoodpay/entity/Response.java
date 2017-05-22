@@ -16,14 +16,14 @@ public class Response {
 
     public static Response error(String erro) {
         Response r = getInstance();
-        r.setStatus(Constants.STATUS_OK);
+        r.setStatus(Constants.STATUS_NOK);
         r.setMessage(erro);
         return r;
     }
 
     public static Response ok(Object o) {
         Response r = getInstance();
-        r.setStatus(Constants.STATUS_NOK);
+        r.setStatus(Constants.STATUS_OK);
         r.setData(o);
         return r;
     }

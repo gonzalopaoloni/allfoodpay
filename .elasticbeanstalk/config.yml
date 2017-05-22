@@ -1,8 +1,14 @@
 branch-defaults:
   default:
     environment: allfood-pay-prod-dev
+  master:
+    environment: allfood-pay-prod-dev
 deploy:
   artifact: target/allfoodpay-0.0.1-SNAPSHOT.jar
+environment-defaults:
+  allfood-pay-prod-dev:
+    branch: null
+    repository: null
 global:
   application_name: allfood-pay-prod
   branch: null
@@ -14,5 +20,5 @@ global:
   platform_version: null
   profile: eb-cli
   repository: null
-  sc: null
+  sc: git
   workspace_type: Application
