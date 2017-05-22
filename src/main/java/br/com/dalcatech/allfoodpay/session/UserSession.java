@@ -19,8 +19,8 @@ public class UserSession {
 
     @Autowired
     public UserSession(UserRepository repository) {
-        this.repository = repository;
-    }
+            this.repository = repository;
+        }
 
     public Response addUser(Customer customer) {
         try {
