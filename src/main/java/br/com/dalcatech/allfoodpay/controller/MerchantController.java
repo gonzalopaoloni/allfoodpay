@@ -39,4 +39,5 @@ public class MerchantController {
     public Response findMerchant(@RequestBody Merchant merchant) {
         return session.findMerchant(merchant.getId());
     }
+
 }

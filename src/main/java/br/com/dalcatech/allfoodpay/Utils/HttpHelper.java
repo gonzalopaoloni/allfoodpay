@@ -3,6 +3,7 @@ package br.com.dalcatech.allfoodpay.Utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -16,7 +17,10 @@ public class HttpHelper {
     private final String TAG = "Http";
     public boolean LOG_ON = true;
     private String contentType;
+    public int TIMEOUT_MILLIS = 30000;
+    public int READ_TIMEOUT_MILLIS = 30000;
     private String charsetToEncode;
+    private String basicAuth;
 
 
     public String doGet(String url) throws IOException {
@@ -98,6 +102,66 @@ public class HttpHelper {
             return null;
         }
     }
+
+    public String doPost(String url, byte[] params, String charset) throws IOException {
+
+        URL u = new URL(url);
+        HttpURLConnection conn = null;
+        String s = null;
+
+        try {
+            conn = (HttpURLConnection)u.openConnection();
+            if(this.contentType != null) {
+                conn.setRequestProperty("Content-Type", this.contentType);
+            }
+
+            if (basicAuth != null) {
+                String auth = "Basic " + basicAuth;
+                conn.setRequestProperty("Authorization", auth);
+            }
+
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Accept-Encoding", "gzip");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(TIMEOUT_MILLIS);
+            conn.setReadTimeout(READ_TIMEOUT_MILLIS);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.connect();
+            OutputStream e;
+            if(params != null) {
+                e = conn.getOutputStream();
+                e.write(params);
+                e.flush();
+                e.close();
+            }
+
+            int status = conn.getResponseCode();
+            InputStream e1;
+            if(status >= 400) {
+                e1 = conn.getErrorStream();
+            } else {
+                e1 = conn.getInputStream();
+            }
+
+            s = IOUtils.toString(e1, charset);
+
+            e1.close();
+        } catch (IOException var12) {
+            throw var12;
+        } finally {
+            if(conn != null) {
+                conn.disconnect();
+            }
+
+        }
+
+        return s;
+    }
+
+
+
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }

@@ -27,6 +27,17 @@ public class Service {
         }
     }
 
+    protected static String doPost(String ws, String stringJson) {
+        try {
+            String url = Constants.WS_URL_BASE + ws;
+            HttpHelper httpHelper = getHttpHelper();
+            return httpHelper.doPost(url, stringJson.getBytes(), Constants.UTF8);
+        } catch (Exception e) {
+            System.out.print(e);
+            return Constants.WARNING_SERVER;
+        }
+    }
+
     protected static HttpHelper getHttpHelper() {
         HttpHelper httpHelper = new HttpHelper();
         httpHelper.setContentType(Constants.CONTENT_TYPE_JSON_UTF8);

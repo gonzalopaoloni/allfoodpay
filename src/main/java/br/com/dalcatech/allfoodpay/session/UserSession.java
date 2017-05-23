@@ -19,19 +19,24 @@ public class UserSession {
 
     @Autowired
     public UserSession(UserRepository repository) {
-            this.repository = repository;
-        }
+        this.repository = repository;
+    }
 
     public Response addUser(Customer customer) {
         try {
-            if(StringUtils.validateCpf(customer).getMessage().equals(Constants.STATUS_NOK)) {
-                return StringUtils.validateCpf(customer);
-            }else{
-                if(StringUtils.validatePassword(customer).getMessage().equals(Constants.STATUS_NOK)) {
-                    return StringUtils.validatePassword(customer);
-                }
-                else{
-                    return Response.ok(repository.save(customer));
+            Response responseCPF = StringUtils.validateCpf(customer);
+            Response responsePassword = StringUtils.validatePassword(customer);
+            if ((responseCPF.getStatus()).equals(Constants.STATUS_NOK)) {
+                return responseCPF;
+            } else {
+                if (responsePassword.getStatus().equals(Constants.STATUS_NOK)) {
+                    return responsePassword;
+                } else {
+                    if (repository.findCustomerByCpf(customer.getCpf()) != null) {
+                        return Response.error("Usuário já cadastrado");
+                    } else {
+                        return Response.ok(repository.save(customer));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -56,14 +61,14 @@ public class UserSession {
             } else {
                 return Response.error("Usuário não encontrado");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.error("Problemas ao atualizar usuário");
         }
     }
 
     public Response getUsers() {
         try {
-            return  Response.ok(repository.findAll());
+            return Response.ok(repository.findAll());
         } catch (Exception e) {
             e.printStackTrace();
             return Response.error("Problemas ao localizar usuários");

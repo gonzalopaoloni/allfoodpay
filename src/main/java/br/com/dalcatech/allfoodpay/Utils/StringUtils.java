@@ -12,7 +12,7 @@ public class StringUtils {
 
         if (password != null) {
             if (password.length() < 6) {
-                return Response.error("Senha muito curta");
+                return Response.error("Senha deve possuir no mínimo 6 caracteres");
             } else if (password.length() > 16) {
                 return Response.error("Senha muito longa");
             } else {
