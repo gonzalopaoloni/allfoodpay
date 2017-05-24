@@ -1,5 +1,6 @@
 package br.com.dalcatech.allfoodpay.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ public class Customer {
     @GeneratedValue
     private long id;
 
-    @SerializedName("Name")
+    @JsonProperty("Name")
     private String name;
 
     private String password;
@@ -24,14 +25,34 @@ public class Customer {
 
     private String cpf;
 
-    @SerializedName("BirthDate")
+    @JsonProperty("BirthDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
 
-    @SerializedName("Email")
+    @JsonProperty("Email")
     private String email;
 
     private String gender;
+
+    private String accessToken;
+
+    private String refreshToken;
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 
     public String getPassword() {
         return password;

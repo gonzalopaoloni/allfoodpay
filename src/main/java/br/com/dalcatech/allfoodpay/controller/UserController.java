@@ -5,7 +5,6 @@ import br.com.dalcatech.allfoodpay.entity.Response;
 import br.com.dalcatech.allfoodpay.session.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Gustavo on 5/17/2017.
@@ -43,8 +42,8 @@ public class UserController {
     }
 
     @RequestMapping("/updateCustomer")
-    public void updateUser(@RequestBody Customer customer) {
-        session.updateUser(customer);
+    public Response updateUser(@RequestBody Customer customer) {
+       return session.updateUser(customer);
     }
 
 }

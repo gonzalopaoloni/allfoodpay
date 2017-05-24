@@ -47,7 +47,7 @@ public class UserSession {
 
     public Response updateUser(Customer customer) {
         try {
-            Customer existingCustomer = repository.findOne(customer.getId());
+            Customer existingCustomer = repository.findCustomerByCpf(customer.getCpf());
             if (existingCustomer != null) {
                 existingCustomer.setCpf(customer.getCpf());
                 existingCustomer.setDataNascimento(customer.getDataNascimento());
@@ -57,7 +57,8 @@ public class UserSession {
                 existingCustomer.setRg(customer.getRg());
                 repository.save(existingCustomer);
 
-                return Response.ok(repository.save(customer));
+                Customer customer1 = repository.save(existingCustomer);
+                return Response.ok(customer1);
             } else {
                 return Response.error("Usuário não encontrado");
             }
