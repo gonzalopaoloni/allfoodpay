@@ -1,7 +1,7 @@
 package br.com.dalcatech.allfoodpay.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.annotations.SerializedName;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,6 +26,7 @@ public class Customer {
     private String cpf;
 
     @JsonProperty("BirthDate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING ,pattern = "YYYY-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
 
@@ -37,6 +38,16 @@ public class Customer {
     private String accessToken;
 
     private String refreshToken;
+
+    private String fcmToken;
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
+    }
 
     public String getAccessToken() {
         return accessToken;
@@ -117,4 +128,5 @@ public class Customer {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 }

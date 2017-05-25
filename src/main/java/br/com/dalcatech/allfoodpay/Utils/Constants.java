@@ -13,6 +13,8 @@ public class Constants {
     public static final String STATUS_OK = "OK";
     public static final String STATUS_NOK = "NOK";
 
+    public static final String ACTION_RECEPTION = "Reception";
 
 
+    public static final String SERVER_API_KEY_GOOGLE = "AAAAaUyccAk:APA91bHWoFZz6o_HvK18gjTehsFfK5WhPkBYkako0XTKwmkobjjwO1-HR8lJnzkvlufnWvzi4b8rsSN1E_fNVhUieGXtHS3dgMAtk9UUiKM3fjNY9r-ODBji8fMbi4tSxWZb09e7jBec";
 }

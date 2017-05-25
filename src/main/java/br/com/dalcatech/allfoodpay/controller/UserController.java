@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @RequestMapping("/findCustomer")
-    public Response findUser(@RequestBody Customer customer){
+    public Response findUser(@RequestBody Customer customer) {
         return session.findUser(customer.getId());
     }
 
@@ -43,7 +43,12 @@ public class UserController {
 
     @RequestMapping("/updateCustomer")
     public Response updateUser(@RequestBody Customer customer) {
-       return session.updateUser(customer);
+        return session.updateUser(customer);
+    }
+
+    @RequestMapping("/sendPushReception")
+    public void sendPush(Customer customer) {
+        session.sendPushReception(customer);
     }
 
 }

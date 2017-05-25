@@ -3,6 +3,7 @@ package br.com.dalcatech.allfoodpay.session;
 import br.com.dalcatech.allfoodpay.entity.Merchant;
 import br.com.dalcatech.allfoodpay.entity.Response;
 import br.com.dalcatech.allfoodpay.repository.MerchantRepository;
+import br.com.dalcatech.allfoodpay.service.FCMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

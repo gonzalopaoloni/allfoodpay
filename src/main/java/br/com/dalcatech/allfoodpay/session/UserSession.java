@@ -5,6 +5,7 @@ import br.com.dalcatech.allfoodpay.Utils.StringUtils;
 import br.com.dalcatech.allfoodpay.entity.Customer;
 import br.com.dalcatech.allfoodpay.entity.Response;
 import br.com.dalcatech.allfoodpay.repository.UserRepository;
+import br.com.dalcatech.allfoodpay.service.FCMService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -96,5 +97,9 @@ public class UserSession {
         } else {
             return Response.error("Usuário inexistente");
         }
+    }
+
+    public void sendPushReception(Customer customer){
+        FCMService.sendPush(customer, Constants.ACTION_RECEPTION);
     }
 }
