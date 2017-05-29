@@ -2,6 +2,7 @@ package br.com.dalcatech.allfoodpay.controller;
 
 import br.com.dalcatech.allfoodpay.entity.Customer;
 import br.com.dalcatech.allfoodpay.entity.Response;
+import br.com.dalcatech.allfoodpay.entity.SmsDTO;
 import br.com.dalcatech.allfoodpay.session.UserSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +48,15 @@ public class UserController {
     }
 
     @RequestMapping("/sendPushReception")
-    public void sendPush(Customer customer) {
+    public void sendPush(@RequestBody Customer customer) {
         session.sendPushReception(customer);
     }
+
+    @RequestMapping("/sendSms")
+    public void sendSms(@RequestBody SmsDTO dto) {
+        session.sendSms(dto);
+    }
+
+
 
 }

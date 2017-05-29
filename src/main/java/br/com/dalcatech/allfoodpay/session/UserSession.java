@@ -1,11 +1,16 @@
 package br.com.dalcatech.allfoodpay.session;
 
 import br.com.dalcatech.allfoodpay.Utils.Constants;
+import br.com.dalcatech.allfoodpay.Utils.MessageFactory;
 import br.com.dalcatech.allfoodpay.Utils.StringUtils;
 import br.com.dalcatech.allfoodpay.entity.Customer;
 import br.com.dalcatech.allfoodpay.entity.Response;
+import br.com.dalcatech.allfoodpay.entity.SmsDTO;
 import br.com.dalcatech.allfoodpay.repository.UserRepository;
 import br.com.dalcatech.allfoodpay.service.FCMService;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -56,6 +61,7 @@ public class UserSession {
                 existingCustomer.setName(customer.getName());
                 existingCustomer.setGender(customer.getGender());
                 existingCustomer.setRg(customer.getRg());
+                existingCustomer.setFcmToken(customer.getFcmToken());
                 repository.save(existingCustomer);
 
                 Customer customer1 = repository.save(existingCustomer);
@@ -99,7 +105,11 @@ public class UserSession {
         }
     }
 
-    public void sendPushReception(Customer customer){
+    public void sendSms(SmsDTO dto) {
+        MessageFactory.sendSms(dto.getPin(), dto.getPhone());
+    }
+
+    public void sendPushReception(Customer customer) {
         FCMService.sendPush(customer, Constants.ACTION_RECEPTION);
     }
 }

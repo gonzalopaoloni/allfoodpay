@@ -30,6 +30,8 @@ public class Customer {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataNascimento;
 
+    private String phone;
+
     @JsonProperty("Email")
     private String email;
 
@@ -40,6 +42,14 @@ public class Customer {
     private String refreshToken;
 
     private String fcmToken;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getFcmToken() {
         return fcmToken;
