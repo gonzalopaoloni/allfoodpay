@@ -64,8 +64,8 @@ public class UserSession {
                 existingCustomer.setFcmToken(customer.getFcmToken());
                 repository.save(existingCustomer);
 
-                Customer customer1 = repository.save(existingCustomer);
-                return Response.ok(customer1);
+                Customer response = repository.save(existingCustomer);
+                return Response.ok(response);
             } else {
                 return Response.error("Usuário não encontrado");
             }
@@ -83,30 +83,39 @@ public class UserSession {
         }
     }
 
-    public Response findUser(Long id) {
+    public Response findUser(Customer customer) {
         try {
-            return Response.ok(repository.findOne(id));
+            return Response.ok(repository.findCustomerByCpf(customer.getCpf()));
         } catch (Exception e) {
             e.printStackTrace();
-            return Response.error("Problemas ao localizar usuário");
+            return Response.error("Usuário não encontrado");
         }
     }
 
     public Response validateUser(Customer customer) {
         Customer existingCustomer = repository.findCustomerByCpf(customer.getCpf());
         if (existingCustomer != null) {
-            if (existingCustomer.getPassword().equals(customer.getPassword())) {
-                return Response.ok(existingCustomer);
+            if (existingCustomer.getStatus().equals(Constants.STATUS_VALIDADO)) {
+                if (existingCustomer.getPassword().equals(customer.getPassword())) {
+                    return Response.ok(existingCustomer);
+                } else {
+                    return Response.error("Senha inválida");
+                }
             } else {
-                return Response.error("Senha inválida");
+                return Response.error("Usuário não validado");
             }
         } else {
             return Response.error("Usuário inexistente");
         }
     }
 
-    public void sendSms(SmsDTO dto) {
-        MessageFactory.sendSms(dto.getPin(), dto.getPhone());
+    public Response sendSms(SmsDTO dto) {
+        try {
+            MessageFactory.sendSms(dto.getPin(), dto.getPhone());
+            return Response.ok("SMS enviado, você receberá o código em instantes");
+        } catch (Exception e) {
+            return Response.error("Problemas ao enviar PIN");
+        }
     }
 
     public void sendPushReception(Customer customer) {

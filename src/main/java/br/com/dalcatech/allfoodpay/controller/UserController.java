@@ -29,7 +29,7 @@ public class UserController {
 
     @RequestMapping("/findCustomer")
     public Response findUser(@RequestBody Customer customer) {
-        return session.findUser(customer.getId());
+        return session.findUser(customer);
     }
 
     @RequestMapping("/addCustomer")
@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @RequestMapping("/sendSms")
-    public void sendSms(@RequestBody SmsDTO dto) {
-        session.sendSms(dto);
+    public Response sendSms(@RequestBody SmsDTO dto) {
+        return session.sendSms(dto);
     }
 
 

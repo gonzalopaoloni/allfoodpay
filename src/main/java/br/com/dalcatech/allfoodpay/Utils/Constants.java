@@ -20,6 +20,8 @@ public class Constants {
     //Status
     public static final String STATUS_OK = "OK";
     public static final String STATUS_NOK = "NOK";
+    public static final String STATUS_VALIDADO = "VALIDADO";
+    public static final String STATUS_NAO_VALIDADO = "NAO VALIDADO";
 
     //Actions
     public static final String ACTION_RECEPTION = "Reception";

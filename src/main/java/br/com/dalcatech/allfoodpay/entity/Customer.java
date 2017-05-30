@@ -43,6 +43,16 @@ public class Customer {
 
     private String fcmToken;
 
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getPhone() {
         return phone;
     }

@@ -27,12 +27,21 @@ public class Response {
         r.setData(o);
         return r;
     }
+    public static Response ok(String message) {
+        Response r = getInstance();
+        r.setStatus(Constants.STATUS_OK);
+        r.setMessage(message);
+        return r;
+    }
 
 
     public static Response getInstance(){
         if(response == null){
             response = new Response();
         }
+        response.setData(null);
+        response.setMessage(null);
+        response.setStatus(null);
         return response;
     }
 
