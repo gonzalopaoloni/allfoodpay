@@ -14,7 +14,7 @@ import java.util.Date;
 public class Customer {
     @Id
     @GeneratedValue
-    private long id;
+    private long idCustomer;
 
     @JsonProperty("Name")
     private String name;
@@ -93,12 +93,12 @@ public class Customer {
         this.password = password;
     }
 
-    public long getId() {
-        return id;
+    public long getIdCustomer() {
+        return idCustomer;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIdCustomer(long idCustomer) {
+        this.idCustomer = idCustomer;
     }
 
     public String getName() {

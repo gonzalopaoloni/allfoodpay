@@ -62,6 +62,7 @@ public class UserSession {
                 existingCustomer.setGender(customer.getGender());
                 existingCustomer.setRg(customer.getRg());
                 existingCustomer.setFcmToken(customer.getFcmToken());
+                existingCustomer.setStatus(customer.getStatus());
                 repository.save(existingCustomer);
 
                 Customer response = repository.save(existingCustomer);
@@ -93,19 +94,23 @@ public class UserSession {
     }
 
     public Response validateUser(Customer customer) {
-        Customer existingCustomer = repository.findCustomerByCpf(customer.getCpf());
-        if (existingCustomer != null) {
-            if (existingCustomer.getStatus().equals(Constants.STATUS_VALIDADO)) {
-                if (existingCustomer.getPassword().equals(customer.getPassword())) {
-                    return Response.ok(existingCustomer);
+        try {
+            Customer existingCustomer = repository.findCustomerByCpf(customer.getCpf());
+            if (existingCustomer != null) {
+                if (existingCustomer.getStatus().equals(Constants.STATUS_VALIDADO)) {
+                    if (existingCustomer.getPassword().equals(customer.getPassword())) {
+                        return Response.ok(existingCustomer);
+                    } else {
+                        return Response.error("Senha inválida");
+                    }
                 } else {
-                    return Response.error("Senha inválida");
+                    return Response.error("Usuário não validado");
                 }
             } else {
-                return Response.error("Usuário não validado");
+                return Response.error("Usuário inexistente");
             }
-        } else {
-            return Response.error("Usuário inexistente");
+        }catch (Exception e){
+            return Response.error("Problemas ao validar usuário");
         }
     }
 
